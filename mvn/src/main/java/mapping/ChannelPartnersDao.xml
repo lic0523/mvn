@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ChannelPartnersDao">
+  <resultMap id="BaseResultMap" type="pojo.ChannelPartners" >
+    <id column="part_id" property="partId" />
+    <result column="part_name" property="partName" />
+    <result column="is_validate" property="isValidate" />
+    <result column="add_date" property="addDate" />
+    <result column="update_Date" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    part_id, part_name, is_validate, add_date,update_date
+  </sql>
+  
+  <select id="getChannelPartnersList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from channel_partners
+    <where>
+    	<if test="partName != null and partName != ''">
+    		part_name like '%${partName}%'
+    	</if>
+    	<if test="isValidate != null and isValidate != ''">
+    		is_validate = #{isValidate}
+    	</if>    	
+    </where>
+    <if test="beginIndex != null and endIndex != null">
+    	limit #{beginIndex},#{pageSize}
+    </if>
+    </select>
+    
+  <select id="getChannelPartnersListCount" resultType="int" >
+    select 
+    count(1)
+    from channel_partners
+    <where>
+    	<if test="partName != null and partName != ''">
+    		part_name like '%${partName}%'
+    	</if>
+    	<if test="isValidate != null and isValidate != ''">
+    		is_validate = #{isValidate}
+    	</if>    	
+    </where>
+  </select>
+  
+  <insert id="saveChannelPartner">
+  	insert into channel_partners(part_name, is_validate, add_date) values(#{partName},#{isValidate},#{addDate})
+  </insert>
+  
+  <update id="updateChannelPartner">
+  	update channel_partners 
+  	set part_name = #{partName},is_validate=#{isValidate} where part_id =#{partId}
+  </update>
+  
+  <update id="updateChannelPartnerByisValidate">
+  	update channel_partners 
+  	set is_validate=#{isValidate} where part_id =#{partId}
+  </update>
+  
+  <delete id="deleteChannelPartner">
+  	delete from channel_partners where part_id =#{partId} 
+  </delete>
+  
+  <select id="findbyChannelPartnerid" resultMap="BaseResultMap">
+  	select * from channel_partners where part_id =#{partId} 
+  </select>
+</mapper>

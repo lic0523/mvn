@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AssetVClipsDao">
+	<resultMap type="pojo.AssetVClips" id="BaseResultMap">
+	<id column="clipId" property="clipId" />
+	<result column="clipName" property="clipName" />
+	<result column="eName" property="eName" />
+	<result column="otherName" property="otherName" />
+	<result column="adaptor" property="adaptor" />
+	<result column="director" property="director" />
+	<result column="leader" property="leader" />
+	<result column="kind" property="kind" />
+	<result column="language" property="language" />
+	<result column="producer" property="producer" />
+	<result column="caption" property="caption" />
+	<result column="duration" property="duration" />
+	<result column="story" property="story" />
+	<result column="keyWord" property="keyWord" />
+	<result column="updateTime" property="updateTime" />
+	<result column="createTime" property="createTime" />
+	<result column="releaseTime" property="releaseTime" />
+	<result column="playTime" property="playTime" />
+	<result column="speaker" property="speaker" />
+	<result column="narrator" property="narrator" />
+	<result column="seoKeyword" property="seoKeyword" />
+	<result column="seoStory" property="seoStory" />
+	</resultMap>
+	
+	<select id="getAssetVClipsList" resultMap="BaseResultMap" >
+    select 
+    *
+    from asset_v_clips
+    <if test="beginIndex != null and pageSize != null">
+    	limit #{beginIndex},#{pageSize}
+    </if>
+    </select>
+    
+    <select id="getAssetVClipsCount" resultType="int" >
+    select 
+    count(1)
+    from asset_v_clips
+    </select>
+</mapper>

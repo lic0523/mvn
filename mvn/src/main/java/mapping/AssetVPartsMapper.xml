@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AssetVPartsDao">
+	<resultMap type="pojo.AssetVParts" id="BaseResultMap">
+	<id column="partId" property="partId" />
+	<result column="clipId" property="clipId" />
+	<result column="partName" property="partName" />
+	<result column="adaptor" property="adaptor" />
+	<result column="director" property="director" />
+	<result column="leader" property="leader" />
+	<result column="story" property="story" />
+	<result column="kind" property="kind" />
+	<result column="language" property="language" />
+	<result column="producer" property="producer" />
+	<result column="caption" property="caption" />
+	<result column="isIntact" property="isIntact" />
+	<result column="duration" property="duration" />
+	<result column="serialno" property="serialno" />
+	<result column="updateTime" property="updateTime" />
+	<result column="createTime" property="createTime" />
+	<result column="releaseTime" property="releaseTime" />
+	<result column="speaker" property="speaker" />
+	<result column="narrator" property="narrator" />
+	<result column="composer" property="composer" />
+	<result column="seoKeyword" property="seoKeyword" />
+	<result column="seoStory" property="seoStory" />
+	</resultMap>
+	
+	<select id="getAssetVPartsList" resultMap="BaseResultMap" >
+    select 
+    *
+    from asset_v_parts
+    <where>
+    	<if test="clipId != null and clipId != ''">
+    		clipId = #{clipId}
+    	</if>    	
+    </where>
+    </select>
+    
+    <select id="getAssetVPartsCount" resultType="int" >
+    select 
+    count(1)
+    from asset_v_parts
+    <where>
+    	<if test="clipId != null and clipId != ''">
+    		clipId = #{clipId}
+    	</if>    	
+    </where>
+    </select>
+</mapper>

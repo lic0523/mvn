@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.PartnersTemplateDao">
+  <resultMap id="BaseResultMap" type="pojo.PartnersTemplate" >
+    <id column="template_id" property="templateid" />
+    <result column="part_id" property="partid" />
+    <result column="is_validate" property="isvalidate" />
+    <result column="content" property="content" />
+    <result column="sub_content" property="subcontent" />
+    <result column="data_type" property="datatype" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    template_id, part_id, is_validate, content,sub_content,data_type
+  </sql>
+  
+    <select id="getPartnersTemplateList" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from channel_partners_template
+    <where>
+    	<if test="partid != null and partid != ''">
+    		part_id = #{partid}
+    	</if>  	
+    </where>
+    <if test="beginIndex != null and endIndex != null">
+    	limit #{beginIndex},#{pageSize}
+    </if>
+    </select>
+    
+    <select id="getPartnersTemplateListCount" resultType="int" >
+    select 
+    count(1)
+    from channel_partners_template
+  </select>
+  
+  <insert id="savePartnersTemplate">
+  	insert into channel_partners_template(part_id, is_validate, content , sub_content , data_type) values(#{partid},#{isvalidate},#{content},#{subcontent},#{datatype})
+  </insert>
+  
+  <select id="getPartnersTemplateById" resultType="int">
+   select 
+   count(1)
+    from channel_partners_template where part_id = #{partid}
+  </select>
+  
+   <select id="getPartnersTemplateByIdList" resultMap="BaseResultMap">
+   select 
+   <include refid="Base_Column_List" />
+    from channel_partners_template where part_id = #{partid}
+  </select>
+  
+  <update id="updatePartnersTemplate">
+  	update channel_partners_template 
+  	set content = #{content},sub_content=#{subcontent} where part_id =#{partid}
+  </update>
+  </mapper>
