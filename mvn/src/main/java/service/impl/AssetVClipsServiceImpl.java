@@ -17,6 +17,7 @@ public class AssetVClipsServiceImpl extends RedisGeneratorDao<String,AssetVClips
 	@Autowired
 	dao.AssetVClipsDao AssetVClipsDao;
 
+	///fffffrr
 	@Override
 	public List<AssetVClips> getAssetVClipsList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
